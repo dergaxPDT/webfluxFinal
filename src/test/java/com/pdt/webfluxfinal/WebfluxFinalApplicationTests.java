@@ -6,25 +6,28 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+//@RunWith(SpringRunner.class)
 class WebfluxFinalApplicationTests {
 
     @Test
     void contextLoads() {
     }
 
-    //    @Before
-//    public void setup(){
-//        RestAssured.baseURI = "https://api.github.com";
-//        RestAssured.port = 443;
-//    }
+    @Before
+    public void setUp() throws Exception {
+        RestAssured.port = port;
+    }
     private String uri;
     @LocalServerPort
     private int port;
@@ -35,17 +38,17 @@ class WebfluxFinalApplicationTests {
     }
 
     @Test
-    void saveAndGetList() {
-        Game game = new Game("cs:go");
-        Map<String, String> request = new HashMap();
-        request.put("name", game.getName());
-        RestAssured
-                .given()
+    public void givenMovie_whenMakingPostRequestToMovieEndpoint_thenCorrect() {
+
+        Map<String, String> request = new HashMap<>();
+        request.put("name", "cs go");
+
+        given().contentType("application/json")
                 .body(request)
                 .when()
-                .post(uri + "api/game")
+                .post(uri + "/api/game")
                 .then()
-                .statusCode(200);
-
+                .assertThat()
+                .statusCode(HttpStatus.CREATED.value());
     }
 }
