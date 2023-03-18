@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 @RestController("api/game")
-@Tag(name = "Game")
+//@Tag(name = "Game")
 public class GameController {
 
     private GameService service;

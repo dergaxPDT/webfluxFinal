@@ -1,8 +1,11 @@
 package com.pdt.webfluxfinal;
 
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import io.restassured.RestAssured.*;
+        import io.restassured.matcher.RestAssuredMatchers.*;
+        import org.hamcrest.Matchers.*;
 @SpringBootTest
 class WebfluxFinalApplicationTests {
 
@@ -10,4 +13,16 @@ class WebfluxFinalApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void saveAndGetList(){
+        Game game = new Game("cs:go");
+        RestAssured
+                .given()
+                .body(game)
+                .when()
+                .post("api/game")
+                .then()
+                .statusCode(200);
+
+    }
 }
