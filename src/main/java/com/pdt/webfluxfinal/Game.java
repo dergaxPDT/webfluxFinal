@@ -1,9 +1,13 @@
 package com.pdt.webfluxfinal;
 
 public class Game {
-    private String name;
+    String name;
 
+    public Game(){
+
+    }
     public Game(String name) {
+        super();
         this.name = name;
     }
 
@@ -13,5 +17,10 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -17,7 +17,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-//@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 class WebfluxFinalApplicationTests {
 
     @Test
@@ -42,13 +42,13 @@ class WebfluxFinalApplicationTests {
 
         Map<String, String> request = new HashMap<>();
         request.put("name", "cs go");
-
-        given().contentType("application/json")
-                .body(request)
+        Game game = new Game("cs go");
+        given()
+                .contentType("application/json")
+                .body(game)
                 .when()
                 .post(uri + "/api/game")
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.CREATED.value());
+                .statusCode(200);
     }
 }

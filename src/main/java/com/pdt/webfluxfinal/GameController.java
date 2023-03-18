@@ -1,21 +1,26 @@
 package com.pdt.webfluxfinal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
-@RestController("/api/game")
-//@Tag(name = "Game")
+@RestController
+@RequestMapping("/api/game")
 public class GameController {
 
+    @Autowired
     private GameService service;
 
     @PostMapping
-    public void createGame(@RequestBody Game game){
+    public Game createGame(@RequestBody Game game){
         service.save(game);
+        return game;
     }
 
-    @GetMapping
-    public Flux<Game> getGames(){
-        return service.getGames();
-    }
+//    @GetMapping
+//    public Flux<Game> getGames(){
+//        return service.getGames();
+//    }
 }
