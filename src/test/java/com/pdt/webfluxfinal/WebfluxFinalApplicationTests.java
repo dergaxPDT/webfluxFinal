@@ -12,15 +12,18 @@ class WebfluxFinalApplicationTests {
     @Test
     void contextLoads() {
     }
-
+    static {
+        System.setProperty("spring.mongodb.embedded.version","5.0.0");
+    }
     @Test
     void saveAndGetList(){
+
         Game game = new Game("cs:go");
         RestAssured
                 .given()
                 .body(game)
                 .when()
-                .post("api/game")
+                .post("/api/game")
                 .then()
                 .statusCode(200);
 
